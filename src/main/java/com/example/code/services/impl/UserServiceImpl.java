@@ -1,6 +1,10 @@
 package com.example.code.services.impl;
 
+import com.example.code.domain.User;
 import com.example.code.dto.ListUserDTO;
+import com.example.code.dto.UserCreationResponse;
+import com.example.code.dto.UserDTO;
+import com.example.code.exceptions.UserNotFoundException;
 import com.example.code.mappers.UserMapper;
 import com.example.code.repositories.UserRepository;
 import com.example.code.services.UserService;
@@ -25,6 +29,22 @@ public class UserServiceImpl implements UserService {
         return userRepository
                 .findAll(PageRequest.of(page, usersPerPage)).getContent()
                 .stream().map(userMapper::toListDTO).toList();
+    }
+
+    @Override
+    public UserDTO findOneById(Long id) {
+        User user = userRepository
+                .findById(id).orElseThrow(() -> new UserNotFoundException("User not found!"));
+
+        return userMapper.toDTO(user);
+    }
+
+    @Override
+    public UserCreationResponse create(UserDTO userDTO) {
+        User user = userMapper.toEntity(userDTO);
+        userRepository.save(user);
+
+        return new UserCreationResponse(user.getId());
     }
 
 }
