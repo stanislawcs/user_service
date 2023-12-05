@@ -1,0 +1,124 @@
+databaseChangeLog:
+  - changeSet:
+      id: insertUserData1
+      author: Stanislaw
+      changes:
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: username
+                  value: 'stanislawcs'
+              - column:
+                  name: email
+                  value: 'shukans588@gmail.com'
+              - column:
+                  name: password
+                  value: '1500002006501'
+
+
+  - changeSet:
+      id: insertUserData2
+      author: Stanislaw
+      changes:
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: username
+                  value: 'marko'
+              - column:
+                  name: email
+                  value: 'marko@gmail.com'
+              - column:
+                  name: password
+                  value: '12345'
+
+  - changeSet:
+      id: insertUserData3
+      author: Stanislaw
+      changes:
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: username
+                  value: 'eugene'
+              - column:
+                  name: email
+                  value: 'eugene@mail.ru'
+              - column:
+                  name: password
+                  value: '12345'
+
+
+  - changeSet:
+      id: insertUserData4
+      author: Stanislaw
+      changes:
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: username
+                  value: 'artemios'
+              - column:
+                  name: email
+                  value: 'artemios@gmail.com'
+              - column:
+                  name: password
+                  value: '12345'
+
+
+  - changeSet:
+      id: insertUserData5
+      author: Stanislaw
+      changes:
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: username
+                  value: 'sancho'
+              - column:
+                  name: email
+                  value: 'sancho@gmail.com'
+              - column:
+                  name: password
+                  value: '12345'
+
+
+  - changeSet:
+      id: insertUserData6
+      author: Stanislaw
+      changes:
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: username
+                  value: 'matthew'
+              - column:
+                  name: email
+                  value: 'matthew@yandex.ru'
+              - column:
+                  name: password
+                  value: '12345'
+
+
+  - changeSet:
+      id: insertUserData7
+      author: Stanislaw
+      changes:
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: username
+                  value: 'lehich'
+              - column:
+                  name: email
+                  value: 'lehich@yandex.ru'
+              - column:
+                  name: password
+                  value: '12345'
