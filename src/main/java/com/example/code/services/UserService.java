@@ -5,5 +5,7 @@ import com.example.code.dto.ListUserDTO;
 import java.util.List;
 
 public interface UserService {
-    List<ListUserDTO> getAll();
+    List<ListUserDTO> findAll();
+    List<ListUserDTO> findAllWithPagination(Integer page, Integer usersPerPage);
+
 }
