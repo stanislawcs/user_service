@@ -19,11 +19,6 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
 
-    @Override
-    public List<ListUserDTO> findAll() {
-        return userRepository.findAll().
-                stream().map(userMapper::toListDTO).toList();
-    }
 
     @Override
     public List<ListUserDTO> findAllWithPagination(Integer page, Integer usersPerPage) {
