@@ -1,16 +1,3 @@
 spring:
-  datasource:
-    url: jdbc:postgresql://localhost:5434/users
-    username: postgres
-    password: 1500002006501
-    driver-class-name: org.postgresql.Driver
-
-  jpa:
-    properties:
-      hibernate:
-        ddl-auto: none
-        dialect: org.hibernate.dialect.PostgreSQLDialect
-        show_sql: true
-
-server:
-  port: 7071
+  profiles:
+    active: local
