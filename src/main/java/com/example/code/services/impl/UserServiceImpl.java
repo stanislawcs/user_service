@@ -9,7 +9,7 @@ import com.example.code.mappers.UserMapper;
 import com.example.code.repositories.UserRepository;
 import com.example.code.services.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,9 +25,9 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public List<ListUserDTO> findAllWithPagination(Integer page, Integer usersPerPage) {
+    public List<ListUserDTO> findAll(Pageable pageable) {
         return userRepository
-                .findAll(PageRequest.of(page, usersPerPage)).getContent()
+                .findAll(pageable).getContent()
                 .stream().map(userMapper::toListDTO).toList();
     }
 
@@ -40,11 +40,29 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public UserCreationResponse create(UserDTO userDTO) {
         User user = userMapper.toEntity(userDTO);
         userRepository.save(user);
-
         return new UserCreationResponse(user.getId());
+    }
+
+    @Override
+    @Transactional
+    public void update(UserDTO userDTO, Long id) {
+        User user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("User not found!"));
+        userMapper.toEntity(userDTO, user);
+        userRepository.save(user);
+    }
+
+
+    @Override
+    @Transactional
+    public void delete(Long id) {
+        if (userRepository.findById(id).isPresent()) {
+            userRepository.deleteById(id);
+        } else
+            throw new UserNotFoundException("User not found!");
     }
 
 }

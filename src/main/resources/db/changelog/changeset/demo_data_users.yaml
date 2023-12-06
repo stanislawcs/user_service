@@ -122,3 +122,71 @@ databaseChangeLog:
               - column:
                   name: password
                   value: '12345'
+
+  - changeSet:
+      id: insertUserData8
+      author: Stanislaw
+      changes:
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: username
+                  value: 'arturio'
+              - column:
+                  name: email
+                  value: 'arturio@yahoo.com'
+              - column:
+                  name: password
+                  value: '12345'
+
+  - changeSet:
+      id: insertUserData9
+      author: Stanislaw
+      changes:
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: username
+                  value: 'roman'
+              - column:
+                  name: email
+                  value: 'roman@yandex.ru'
+              - column:
+                  name: password
+                  value: '12345'
+
+  - changeSet:
+      id: insertUserData10
+      author: Stanislaw
+      changes:
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: username
+                  value: 'diman'
+              - column:
+                  name: email
+                  value: 'diman@gmail.com'
+              - column:
+                  name: password
+                  value: '12345'
+
+  - changeSet:
+      id: insertUserData11
+      author: Stanislaw
+      changes:
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: username
+                  value: 'makson'
+              - column:
+                  name: email
+                  value: 'makson@yandex.ru'
+              - column:
+                  name: password
+                  value: '12345'
