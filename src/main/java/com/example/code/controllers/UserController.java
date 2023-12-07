@@ -30,7 +30,6 @@ public class UserController {
         return new ResponseEntity<>(userService.findAll(pageable), HttpStatus.OK);
     }
 
-
     @GetMapping("/{id}")
     public ResponseEntity<UserDTO> findOneById(@PathVariable("id") Long id) {
         return new ResponseEntity<>(userService.findOneById(id), HttpStatus.OK);
@@ -44,7 +43,7 @@ public class UserController {
     @PutMapping("/{id}")
     public ResponseEntity<HttpStatus> update(@PathVariable("id") Long id,
                                              @RequestBody @Validated(OnUpdate.class) UserDTO userDTO) {
-        userService.update(userDTO,id);
+        userService.update(userDTO, id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
