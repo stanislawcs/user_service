@@ -9,8 +9,12 @@ import java.util.List;
 
 public interface UserService {
     List<ListUserDTO> findAll(Pageable pageable);
+
     UserDTO findOneById(Long id);
+
     UserCreationResponse create(UserDTO userDTO);
+
     void update(UserDTO userDTO, Long id);
+
     void delete(Long id);
 }

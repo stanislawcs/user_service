@@ -4,6 +4,7 @@ import com.example.code.dto.validation.OnCreate;
 import com.example.code.dto.validation.OnUpdate;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,5 +22,6 @@ public class UserDTO {
     private String email;
 
     @NotBlank(groups = {OnCreate.class, OnUpdate.class})
+    @Size(min = 4, max = 20, groups = {OnCreate.class, OnUpdate.class})
     private String password;
 }

@@ -7,8 +7,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class UsernameAlreadyTaken extends RuntimeException{
-    public UsernameAlreadyTaken(String message){
+public class UsernameAlreadyTaken extends RuntimeException {
+    public UsernameAlreadyTaken(String message) {
         super(message);
     }
 

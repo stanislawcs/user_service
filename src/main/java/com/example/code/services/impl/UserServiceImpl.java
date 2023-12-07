@@ -61,7 +61,7 @@ public class UserServiceImpl implements UserService {
             userRepository.save(user);
             return new UserCreationResponse(user.getId());
         }
-        //
+
     }
 
     @Override
