@@ -3,6 +3,7 @@ package com.example.code.controllers;
 import com.example.code.dto.ListUserDTO;
 import com.example.code.dto.UserCreationResponse;
 import com.example.code.dto.UserDTO;
+import com.example.code.exceptions.UserNotFoundException;
 import com.example.code.exceptions.UsernameAlreadyTaken;
 import com.example.code.services.impl.UserServiceImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -22,6 +23,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+
 @WebMvcTest(UserController.class)
 class UserControllerTest {
 
@@ -36,7 +38,7 @@ class UserControllerTest {
 
     @Test
     @SneakyThrows
-    void getAll() {
+    void findAll_returnListOfUsers() {
 
         ListUserDTO user1 = new ListUserDTO(1L, "stanislawcs", "shukans588@gmail.com");
         ListUserDTO user2 = new ListUserDTO(2L, "marko", "marko@gmail.com");
@@ -58,9 +60,10 @@ class UserControllerTest {
         verify(userService).findAll(PageRequest.of(0, 2));
     }
 
+
     @Test
     @SneakyThrows
-    void getOneById() {
+    void findOneById_returnUser() {
         UserDTO userDTO = new UserDTO(1L, "stanislawcs", "shukans588@gmail.com", "158203");
 
         when(userService.findOneById(1L)).thenReturn(userDTO);
@@ -74,6 +77,19 @@ class UserControllerTest {
 
         verify(userService).findOneById(1L);
 
+    }
+
+    @Test
+    @SneakyThrows
+    void findOneById_returnErrorResponse(){
+
+        when(userService.findOneById(1L)).thenThrow(new UserNotFoundException("User not found!"));
+
+        mockMvc.perform(get("/users/{id}",1L))
+                .andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.message").value("User not found!"));
+
+        verify(userService).findOneById(1L);
     }
 
     @Test
@@ -94,15 +110,16 @@ class UserControllerTest {
 
     @Test
     @SneakyThrows
-    void create_throwEx() {
+    void create_returnErrorResponse() {
         UserDTO userDTO = new UserDTO(1L, "stanislawcs", "shukans588@gmail.com", "158203");
-        when(userService.create(userDTO)).thenThrow(new UsernameAlreadyTaken());
+        when(userService.create(userDTO)).thenThrow(new UsernameAlreadyTaken("Username already taken"));
         String userJson = objectMapper.writeValueAsString(userDTO);
 
         mockMvc.perform(post("/users")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(userJson))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.message").value("Username already taken"));
 
         verify(userService).create(userDTO);
     }
@@ -126,11 +143,40 @@ class UserControllerTest {
 
     @Test
     @SneakyThrows
+    void update_returnErrorResponse(){
+        UserDTO userDTO = new UserDTO(1L, "stanislawcs", "shukans588@gmail.com", "158203");
+        String userJson = objectMapper.writeValueAsString(userDTO);
+
+        doThrow(new UserNotFoundException("User not found!")).when(userService).update(userDTO,1L);
+
+        mockMvc.perform(put("/users/{id}",1L)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(userJson))
+                .andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.message").value("User not found!"));
+
+        verify(userService).update(userDTO,1L);
+    }
+
+    @Test
+    @SneakyThrows
     void delete_deleteUser() {
         doNothing().when(userService).delete(1L);
 
         mockMvc.perform(delete("/users/{id}", 1L))
                 .andExpect(status().isNoContent());
+
+        verify(userService).delete(1L);
+    }
+
+    @Test
+    @SneakyThrows
+    void delete_returnErrorResponse(){
+        doThrow(new UserNotFoundException("User not found!")).when(userService).delete(1L);
+
+        mockMvc.perform(delete("/users/{id}",1L))
+                .andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.message").value("User not found!"));
 
         verify(userService).delete(1L);
     }

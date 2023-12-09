@@ -25,7 +25,7 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping
-    public ResponseEntity<List<ListUserDTO>> getAll(@PageableDefault(value = 5) Pageable pageable) {
+    public ResponseEntity<List<ListUserDTO>> findAll(@PageableDefault(value = 5) Pageable pageable) {
 
         return new ResponseEntity<>(userService.findAll(pageable), HttpStatus.OK);
     }
