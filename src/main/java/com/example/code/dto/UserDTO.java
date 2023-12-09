@@ -5,11 +5,15 @@ import com.example.code.dto.validation.OnUpdate;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@EqualsAndHashCode
 public class UserDTO {
 
     private Long id;
@@ -24,4 +28,5 @@ public class UserDTO {
     @NotBlank(groups = {OnCreate.class, OnUpdate.class})
     @Size(min = 4, max = 20, groups = {OnCreate.class, OnUpdate.class})
     private String password;
+
 }

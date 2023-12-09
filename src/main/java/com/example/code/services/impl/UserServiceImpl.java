@@ -53,7 +53,6 @@ public class UserServiceImpl implements UserService {
         log.info("UserService: create()");
         Optional<User> foundedUser = userRepository.findUserByUsername(userDTO.getUsername());
 
-        //???
         if (foundedUser.isPresent()) {
             throw new UsernameAlreadyTaken("Username already taken");
         } else {
@@ -83,6 +82,8 @@ public class UserServiceImpl implements UserService {
             userRepository.deleteById(id);
         } else
             throw new UserNotFoundException("User not found!");
-    }
 
+    }
 }
+
+
