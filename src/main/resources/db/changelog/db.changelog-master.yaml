@@ -3,3 +3,7 @@ databaseChangeLog:
       file: db/changelog/changeset/create_user_table.yaml
   - include:
       file: db/changelog/changeset/demo_data_users.yaml
+  - include:
+      file: db/changelog/changeset/create_users_roles_table.yaml
+  - include:
+      file: db/changelog/changeset/demo_data_users_roles.yaml

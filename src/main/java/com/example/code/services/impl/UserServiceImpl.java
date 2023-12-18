@@ -5,7 +5,7 @@ import com.example.code.dto.ListUserDTO;
 import com.example.code.dto.UserCreationResponse;
 import com.example.code.dto.UserDTO;
 import com.example.code.exceptions.UserNotFoundException;
-import com.example.code.exceptions.UsernameAlreadyTaken;
+import com.example.code.exceptions.UsernameAlreadyTakenException;
 import com.example.code.mappers.UserMapper;
 import com.example.code.repositories.UserRepository;
 import com.example.code.services.UserService;
@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Profile;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,6 +29,7 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final UserMapper userMapper;
+    //private final PasswordEncoder passwordEncoder;
 
     @Override
     public List<ListUserDTO> findAll(Pageable pageable) {
@@ -51,12 +53,13 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public UserCreationResponse create(UserDTO userDTO) {
         log.info("UserService: create()");
-        Optional<User> foundedUser = userRepository.findUserByUsername(userDTO.getUsername());
+        Optional<User> foundedUser = userRepository.findByUsername(userDTO.getUsername());
 
         if (foundedUser.isPresent()) {
-            throw new UsernameAlreadyTaken("Username already taken");
+            throw new UsernameAlreadyTakenException("Username already taken");
         } else {
             User user = userMapper.toEntity(userDTO);
+            //user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
             userRepository.save(user);
             return new UserCreationResponse(user.getId());
         }
@@ -70,6 +73,7 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("User not found!"));
 
         userMapper.toEntity(userDTO, user);
+        //user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
         userRepository.save(user);
     }
 
@@ -84,6 +88,7 @@ public class UserServiceImpl implements UserService {
             throw new UserNotFoundException("User not found!");
 
     }
+
 }
 
 

@@ -18,11 +18,11 @@ public class ExceptionHandlerController {
     }
 
 
-    @ExceptionHandler
-    public ResponseEntity<ExceptionResponse> handleRuntimeException(RuntimeException e) {
-
-        return new ResponseEntity<>(new ExceptionResponse(e.getMessage()), HttpStatus.BAD_REQUEST);
-    }
+//    @ExceptionHandler
+//    public ResponseEntity<ExceptionResponse> handleRuntimeException(RuntimeException e) {
+//
+//        return new ResponseEntity<>(new ExceptionResponse(e.getMessage()), HttpStatus.BAD_REQUEST);
+//    }
 
 
     @ExceptionHandler

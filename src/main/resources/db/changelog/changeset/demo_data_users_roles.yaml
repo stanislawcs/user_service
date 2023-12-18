@@ -1,0 +1,78 @@
+databaseChangeLog:
+  - changeSet:
+      id: demo-data-users-roles-1
+      author: Stanislaw
+      changes:
+        - insert:
+            tableName: users_roles
+            columns:
+              - column:
+                  name: user_id
+                  value: 1
+
+              - column:
+                  name: role
+                  value: 'ROLE_ADMIN'
+
+
+  - changeSet:
+      id: demo-data-users-roles-2
+      author: Stanislaw
+      changes:
+        - insert:
+            tableName: users_roles
+            columns:
+              - column:
+                  name: user_id
+                  value: 2
+
+              - column:
+                  name: role
+                  value: 'ROLE_USER'
+
+
+  - changeSet:
+      id: demo-data-users-roles-3
+      author: Stanislaw
+      changes:
+        - insert:
+            tableName: users_roles
+            columns:
+              - column:
+                  name: user_id
+                  value: 3
+
+              - column:
+                  name: role
+                  value: 'ROLE_READER'
+
+
+  - changeSet:
+      id: demo-data-users-roles-4
+      author: Stanislaw
+      changes:
+        - insert:
+            tableName: users_roles
+            columns:
+              - column:
+                  name: user_id
+                  value: 1
+
+              - column:
+                  name: role
+                  value: 'ROLE_MODERATOR'
+
+  - changeSet:
+      id: demo-data-users-roles-5
+      author: Stanislaw
+      changes:
+        - insert:
+            tableName: users_roles
+            columns:
+              - column:
+                  name: user_id
+                  value: 1
+
+              - column:
+                  name: role
+                  value: 'ROLE_READER'
