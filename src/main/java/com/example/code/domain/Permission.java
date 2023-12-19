@@ -12,7 +12,4 @@ public enum Permission {
 
     @Getter
     private final String permission;
-
-
-
 }

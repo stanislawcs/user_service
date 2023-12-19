@@ -29,7 +29,7 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final UserMapper userMapper;
-    //private final PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public List<ListUserDTO> findAll(Pageable pageable) {
@@ -59,7 +59,7 @@ public class UserServiceImpl implements UserService {
             throw new UsernameAlreadyTakenException("Username already taken");
         } else {
             User user = userMapper.toEntity(userDTO);
-            //user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+            user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
             userRepository.save(user);
             return new UserCreationResponse(user.getId());
         }
@@ -73,7 +73,7 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("User not found!"));
 
         userMapper.toEntity(userDTO, user);
-        //user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+        user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
         userRepository.save(user);
     }
 

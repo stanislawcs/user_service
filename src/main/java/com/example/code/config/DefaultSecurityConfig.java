@@ -1,7 +1,7 @@
 package com.example.code.config;
 
 import com.example.code.domain.Role;
-import com.example.code.services.impl.DefaultUserDetailsService;
+import com.example.code.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,6 +12,8 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -21,7 +23,7 @@ import org.springframework.security.web.SecurityFilterChain;
 @RequiredArgsConstructor
 public class DefaultSecurityConfig {
 
-    private final DefaultUserDetailsService userDetailsService;
+    private final UserRepository userRepository;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -29,7 +31,8 @@ public class DefaultSecurityConfig {
                 url -> url.requestMatchers(HttpMethod.GET, "/users").hasRole(Role.ADMIN.name())
                         .requestMatchers(HttpMethod.GET, "/users/{id}")
                         .hasAnyRole(Role.ADMIN.name(), Role.MODERATOR.name(), Role.READER.name())
-                        .requestMatchers("/users/**").hasAnyRole(Role.ADMIN.name(), Role.MODERATOR.name(), Role.READER.name())
+                        .requestMatchers("/users/**")
+                        .hasAnyRole(Role.ADMIN.name(), Role.MODERATOR.name(), Role.READER.name())
                         .anyRequest().authenticated()
         ).httpBasic(Customizer.withDefaults());
         return http.build();
@@ -38,7 +41,7 @@ public class DefaultSecurityConfig {
     @Bean
     public AuthenticationManager authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-        authProvider.setUserDetailsService(userDetailsService);
+        authProvider.setUserDetailsService(userDetailsService());
         authProvider.setPasswordEncoder(passwordEncoder());
         return new ProviderManager(authProvider);
     }
@@ -46,6 +49,12 @@ public class DefaultSecurityConfig {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public UserDetailsService userDetailsService() {
+        return username -> userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("Failed to retrieve user: " + username));
     }
 
 }
