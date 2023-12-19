@@ -14,7 +14,7 @@ databaseChangeLog:
                   value: 'shukans588@gmail.com'
               - column:
                   name: password
-                  value: '1500002006501'
+                  value: "{bcrypt}$2a$12$gAUlWvItcnv4rdGLS/Opwu16z1UuGImOprAkf99uRdUM7y4W.W/Ta"
 
 
   - changeSet:
@@ -32,7 +32,7 @@ databaseChangeLog:
                   value: 'marko@gmail.com'
               - column:
                   name: password
-                  value: '$2a$10$ZCj/74OrxeWzFcnRgI5xFOnbw87hsdYNrAQucrKHiQ7s.xDXGor0q'
+                  value: '{bcrypt}$2a$10$ZCj/74OrxeWzFcnRgI5xFOnbw87hsdYNrAQucrKHiQ7s.xDXGor0q'
 
   - changeSet:
       id: insertUserData3
@@ -49,7 +49,7 @@ databaseChangeLog:
                   value: 'eugene@mail.ru'
               - column:
                   name: password
-                  value: '$2a$10$ZCj/74OrxeWzFcnRgI5xFOnbw87hsdYNrAQucrKHiQ7s.xDXGor0q'
+                  value: '{bcrypt}$2a$10$ZCj/74OrxeWzFcnRgI5xFOnbw87hsdYNrAQucrKHiQ7s.xDXGor0q'
 
 
   - changeSet:
@@ -67,7 +67,7 @@ databaseChangeLog:
                   value: 'artemios@gmail.com'
               - column:
                   name: password
-                  value: '$2a$10$ZCj/74OrxeWzFcnRgI5xFOnbw87hsdYNrAQucrKHiQ7s.xDXGor0q'
+                  value: '{bcrypt}$2a$10$ZCj/74OrxeWzFcnRgI5xFOnbw87hsdYNrAQucrKHiQ7s.xDXGor0q'
 
 
   - changeSet:
@@ -85,7 +85,7 @@ databaseChangeLog:
                   value: 'sancho@gmail.com'
               - column:
                   name: password
-                  value: '$2a$10$ZCj/74OrxeWzFcnRgI5xFOnbw87hsdYNrAQucrKHiQ7s.xDXGor0q'
+                  value: '{bcrypt}$2a$10$ZCj/74OrxeWzFcnRgI5xFOnbw87hsdYNrAQucrKHiQ7s.xDXGor0q'
 
 
   - changeSet:
@@ -103,7 +103,7 @@ databaseChangeLog:
                   value: 'matthew@yandex.ru'
               - column:
                   name: password
-                  value: '$2a$10$ZCj/74OrxeWzFcnRgI5xFOnbw87hsdYNrAQucrKHiQ7s.xDXGor0q'
+                  value: '{bcrypt}$2a$10$ZCj/74OrxeWzFcnRgI5xFOnbw87hsdYNrAQucrKHiQ7s.xDXGor0q'
 
 
   - changeSet:
@@ -121,7 +121,7 @@ databaseChangeLog:
                   value: 'lehich@yandex.ru'
               - column:
                   name: password
-                  value: '$2a$10$ZCj/74OrxeWzFcnRgI5xFOnbw87hsdYNrAQucrKHiQ7s.xDXGor0q'
+                  value: '{bcrypt}$2a$10$ZCj/74OrxeWzFcnRgI5xFOnbw87hsdYNrAQucrKHiQ7s.xDXGor0q'
 
   - changeSet:
       id: insertUserData8
@@ -138,7 +138,7 @@ databaseChangeLog:
                   value: 'arturio@yahoo.com'
               - column:
                   name: password
-                  value: '$2a$10$ZCj/74OrxeWzFcnRgI5xFOnbw87hsdYNrAQucrKHiQ7s.xDXGor0q'
+                  value: '{bcrypt}$2a$10$ZCj/74OrxeWzFcnRgI5xFOnbw87hsdYNrAQucrKHiQ7s.xDXGor0q'
 
   - changeSet:
       id: insertUserData9
@@ -155,7 +155,7 @@ databaseChangeLog:
                   value: 'roman@yandex.ru'
               - column:
                   name: password
-                  value: '$2a$10$ZCj/74OrxeWzFcnRgI5xFOnbw87hsdYNrAQucrKHiQ7s.xDXGor0q'
+                  value: '{bcrypt}$2a$10$ZCj/74OrxeWzFcnRgI5xFOnbw87hsdYNrAQucrKHiQ7s.xDXGor0q'
 
   - changeSet:
       id: insertUserData10
@@ -172,7 +172,7 @@ databaseChangeLog:
                   value: 'diman@gmail.com'
               - column:
                   name: password
-                  value: '$2a$10$ZCj/74OrxeWzFcnRgI5xFOnbw87hsdYNrAQucrKHiQ7s.xDXGor0q'
+                  value: '{bcrypt}$2a$10$ZCj/74OrxeWzFcnRgI5xFOnbw87hsdYNrAQucrKHiQ7s.xDXGor0q'
 
   - changeSet:
       id: insertUserData11
@@ -189,4 +189,4 @@ databaseChangeLog:
                   value: 'makson@yandex.ru'
               - column:
                   name: password
-                  value: '$2a$10$ZCj/74OrxeWzFcnRgI5xFOnbw87hsdYNrAQucrKHiQ7s.xDXGor0q'
+                  value: '{bcrypt}$2a$10$ZCj/74OrxeWzFcnRgI5xFOnbw87hsdYNrAQucrKHiQ7s.xDXGor0q'
