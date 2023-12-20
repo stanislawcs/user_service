@@ -14,10 +14,9 @@ databaseChangeLog:
                     foreignKeyName: fk_users_users_roles
                     deleteCascade: true
               - column:
-                  name: role
-                  type: varchar(255)
+                  name: role_id
+                  type: bigint
                   constraints:
-                    nullable: false
-            primaryKey:
-              - user_id
-              - role
+                    references: roles(id)
+                    foreignKeyName: fk_roles_users_roles
+                    deleteCascade: true

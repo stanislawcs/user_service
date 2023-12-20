@@ -11,8 +11,8 @@ databaseChangeLog:
                   value: 1
 
               - column:
-                  name: role
-                  value: 'ROLE_ADMIN'
+                  name: role_id
+                  value: 1
 
 
   - changeSet:
@@ -27,8 +27,8 @@ databaseChangeLog:
                   value: 2
 
               - column:
-                  name: role
-                  value: 'ROLE_USER'
+                  name: role_id
+                  value: 3
 
 
   - changeSet:
@@ -43,8 +43,8 @@ databaseChangeLog:
                   value: 3
 
               - column:
-                  name: role
-                  value: 'ROLE_READER'
+                  name: role_id
+                  value: 3
 
 
   - changeSet:
@@ -59,8 +59,8 @@ databaseChangeLog:
                   value: 1
 
               - column:
-                  name: role
-                  value: 'ROLE_MODERATOR'
+                  name: role_id
+                  value: 2
 
   - changeSet:
       id: demo-data-users-roles-5
@@ -74,5 +74,5 @@ databaseChangeLog:
                   value: 1
 
               - column:
-                  name: role
-                  value: 'ROLE_READER'
+                  name: role_id
+                  value: 3

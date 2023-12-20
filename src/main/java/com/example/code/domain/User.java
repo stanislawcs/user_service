@@ -1,12 +1,15 @@
 package com.example.code.domain;
 
 import jakarta.persistence.*;
-import lombok.*;
-import org.hibernate.Hibernate;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Set;
 
@@ -20,7 +23,8 @@ import java.util.Set;
         name = "graph.User.roles",
         attributeNodes = @NamedAttributeNode("roles")
 )
-public class User implements UserDetails {
+public class User implements UserDetails, Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -31,18 +35,16 @@ public class User implements UserDetails {
 
     private String password;
 
-    @ToString.Exclude
-    @Enumerated(EnumType.STRING)
-    @ElementCollection(targetClass = Role.class, fetch = FetchType.LAZY)
-    @CollectionTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"))
-    @Column(name = "role")
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "users_roles",
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     private Set<Role> roles;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        Hibernate.initialize(this.roles);
         return this.getRoles().stream()
-                .map(role -> new SimpleGrantedAuthority(role.name())).toList();
+                .map(role -> new SimpleGrantedAuthority(role.getType().name())).toList();
     }
 
     @Override
