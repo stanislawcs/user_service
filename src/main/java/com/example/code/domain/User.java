@@ -15,14 +15,14 @@ import java.util.Set;
 
 @Entity
 @Table(name = "users")
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@Setter
 @NamedEntityGraph(
         name = "graph.User.roles",
         attributeNodes = @NamedAttributeNode("roles")
 )
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class User implements UserDetails, Serializable {
 
     @Id

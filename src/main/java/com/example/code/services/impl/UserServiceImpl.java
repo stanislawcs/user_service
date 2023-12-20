@@ -40,7 +40,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDTO findOneById(Long id) {
+    public UserDTO findById(Long id) {
         log.info("UserService: findOneById()");
 
         User user = userRepository

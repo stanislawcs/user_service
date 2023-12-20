@@ -48,14 +48,14 @@ class UserControllerTest {
     @Test
     void findOneById_getUser() {
         UserDTO userDTO = new UserDTO(1L, "stanislawcs", "shukans588@gmail.com", "158203");
-        when(userService.findOneById(1L)).thenReturn(userDTO);
+        when(userService.findById(1L)).thenReturn(userDTO);
 
         ResponseEntity<UserDTO> response = userController.findOneById(1L);
 
         Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
         Assertions.assertEquals(userDTO, response.getBody());
 
-        verify(userService).findOneById(1L);
+        verify(userService).findById(1L);
     }
 
     @Test

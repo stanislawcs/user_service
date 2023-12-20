@@ -1,14 +1,10 @@
 package com.example.code.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
-@Getter
-@Setter
+
+@Data
 @AllArgsConstructor
-@EqualsAndHashCode
 public class ListUserDTO {
     private Long id;
     private String username;

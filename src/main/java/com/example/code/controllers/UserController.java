@@ -32,7 +32,7 @@ public class UserController {
 
     @GetMapping("/{id}")
     public ResponseEntity<UserDTO> findOneById(@PathVariable("id") Long id) {
-        return new ResponseEntity<>(userService.findOneById(id), HttpStatus.OK);
+        return new ResponseEntity<>(userService.findById(id), HttpStatus.OK);
     }
 
     @PostMapping
