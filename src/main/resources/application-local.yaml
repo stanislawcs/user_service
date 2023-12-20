@@ -18,5 +18,5 @@ server:
 logging:
   level:
     org:
-      springframwork:
+      springframework:
         security: DEBUG
