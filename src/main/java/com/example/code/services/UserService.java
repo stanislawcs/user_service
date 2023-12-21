@@ -1,20 +1,20 @@
 package com.example.code.services;
 
-import com.example.code.dto.ListUserDTO;
+import com.example.code.dto.ListUserDto;
 import com.example.code.dto.UserCreationResponse;
-import com.example.code.dto.UserDTO;
+import com.example.code.dto.UserDto;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
 public interface UserService {
-    List<ListUserDTO> findAll(Pageable pageable);
+    List<ListUserDto> findAll(Pageable pageable);
 
-    UserDTO findById(Long id);
+    UserDto findById(Long id);
 
-    UserCreationResponse create(UserDTO userDTO);
+    UserCreationResponse create(UserDto userDTO);
 
-    void update(UserDTO userDTO, Long id);
+    void update(UserDto userDTO, Long id);
 
     void delete(Long id);
 }

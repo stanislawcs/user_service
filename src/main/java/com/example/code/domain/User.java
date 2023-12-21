@@ -16,7 +16,7 @@ import java.util.Set;
 @Entity
 @Table(name = "users")
 @NamedEntityGraph(
-        name = "graph.User.roles",
+        name = "graph.user.roles",
         attributeNodes = @NamedAttributeNode("roles")
 )
 @Getter

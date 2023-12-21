@@ -5,7 +5,7 @@ import lombok.*;
 
 @Data
 @AllArgsConstructor
-public class ListUserDTO {
+public class ListUserDto {
     private Long id;
     private String username;
     private String email;

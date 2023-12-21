@@ -1,7 +1,7 @@
 package com.example.code.services;
 
 import com.example.code.domain.User;
-import com.example.code.dto.ListUserDTO;
+import com.example.code.dto.ListUserDto;
 import com.example.code.mappers.UserMapper;
 import com.example.code.repositories.UserRepository;
 import com.example.code.services.impl.UserServiceImpl;
@@ -55,14 +55,14 @@ class UserServiceTest {
 
         when(userRepository.findAll(pageable)).thenReturn(userPage);
 
-        List<ListUserDTO> listUserDTOS = userService.findAll(pageable);
+        List<ListUserDto> listUserDTOS = userService.findAll(pageable);
 
-        for (ListUserDTO list : listUserDTOS) {
+        for (ListUserDto list : listUserDTOS) {
             System.out.println(list);
         }
 
         Assertions.assertNotNull(listUserDTOS);
-        Assertions.assertEquals(listUserDTOS, userPage.getContent().stream().map(userMapper::toListDTO).toList());
+        Assertions.assertEquals(listUserDTOS, userPage.getContent().stream().map(userMapper::toListDto).toList());
 
         verify(userRepository).findAll(pageable);
     }

@@ -1,8 +1,8 @@
 package com.example.code.controllers;
 
-import com.example.code.dto.ListUserDTO;
+import com.example.code.dto.ListUserDto;
 import com.example.code.dto.UserCreationResponse;
-import com.example.code.dto.UserDTO;
+import com.example.code.dto.UserDto;
 import com.example.code.services.impl.UserServiceImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -31,13 +31,13 @@ class UserControllerTest {
     @Test
     void findAll_returnListOfUsers() {
         Pageable pageable = PageRequest.of(0, 2);
-        ListUserDTO user1 = new ListUserDTO(1L, "stanislawcs", "shukans588@gmail.com");
-        ListUserDTO user2 = new ListUserDTO(1L, "marko", "marko@gmail.com");
-        List<ListUserDTO> users = List.of(user1, user2);
+        ListUserDto user1 = new ListUserDto(1L, "stanislawcs", "shukans588@gmail.com");
+        ListUserDto user2 = new ListUserDto(1L, "marko", "marko@gmail.com");
+        List<ListUserDto> users = List.of(user1, user2);
 
         when(userService.findAll(pageable)).thenReturn(users);
 
-        ResponseEntity<List<ListUserDTO>> response = userController.findAll(pageable);
+        ResponseEntity<List<ListUserDto>> response = userController.findAll(pageable);
 
         Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
         Assertions.assertEquals(users, response.getBody());
@@ -47,10 +47,10 @@ class UserControllerTest {
 
     @Test
     void findOneById_getUser() {
-        UserDTO userDTO = new UserDTO(1L, "stanislawcs", "shukans588@gmail.com", "158203");
+        UserDto userDTO = new UserDto(1L, "stanislawcs", "shukans588@gmail.com", "158203");
         when(userService.findById(1L)).thenReturn(userDTO);
 
-        ResponseEntity<UserDTO> response = userController.findOneById(1L);
+        ResponseEntity<UserDto> response = userController.findOneById(1L);
 
         Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
         Assertions.assertEquals(userDTO, response.getBody());
@@ -60,7 +60,7 @@ class UserControllerTest {
 
     @Test
     void create_createUser() {
-        UserDTO userDTO = new UserDTO(1L, "stanislawcs", "shukans588@gmail.com", "158203");
+        UserDto userDTO = new UserDto(1L, "stanislawcs", "shukans588@gmail.com", "158203");
         UserCreationResponse userCreationResponse = new UserCreationResponse(1L);
         when(userService.create(userDTO)).thenReturn(userCreationResponse);
 
@@ -74,7 +74,7 @@ class UserControllerTest {
 
     @Test
     void update_updateUser() {
-        UserDTO userDTO = new UserDTO(1L, "stanislawcs", "shukans588@gmail.com", "158203");
+        UserDto userDTO = new UserDto(1L, "stanislawcs", "shukans588@gmail.com", "158203");
         doNothing().when(userService).update(userDTO, 1L);
 
         ResponseEntity<HttpStatus> response = userController.update(1L, userDTO);

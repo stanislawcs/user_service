@@ -1,7 +1,5 @@
 package com.example.code.config;
 
-import com.example.code.domain.Role;
-import com.example.code.domain.RoleType;
 import com.example.code.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -29,11 +27,10 @@ public class DefaultSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf().disable().authorizeHttpRequests(
-                url -> url.requestMatchers(HttpMethod.GET, "/users").hasRole(RoleType.ADMIN.name())
-                        .requestMatchers(HttpMethod.GET, "/users/{id}")
-                        .hasAnyRole(RoleType.ADMIN.name(), RoleType.MODERATOR.name(), RoleType.READER.name())
+                url -> url.requestMatchers(HttpMethod.GET, "/users")
+                        .hasRole("ADMIN")
                         .requestMatchers("/users/**")
-                        .hasAnyRole(RoleType.ADMIN.name(), RoleType.MODERATOR.name(), RoleType.READER.name())
+                        .hasAnyRole("ADMIN", "MODERATOR", "READER")
                         .anyRequest().authenticated()
         ).httpBasic(Customizer.withDefaults());
         return http.build();
