@@ -50,7 +50,7 @@ class UserControllerTest {
         UserDto userDTO = new UserDto(1L, "stanislawcs", "shukans588@gmail.com", "158203");
         when(userService.findById(1L)).thenReturn(userDTO);
 
-        ResponseEntity<UserDto> response = userController.findOneById(1L);
+        ResponseEntity<UserDto> response = userController.findById(1L);
 
         Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
         Assertions.assertEquals(userDTO, response.getBody());
