@@ -6,7 +6,10 @@ import jakarta.validation.constraints.Size;
 import lombok.*;
 
 
-@Data
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor
 @AllArgsConstructor
 public class UserDto {
 
@@ -15,8 +18,8 @@ public class UserDto {
     @NotBlank
     private String username;
 
-    @NotBlank
     @Email
+    @NotBlank
     private String email;
 
     @NotBlank

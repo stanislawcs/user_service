@@ -3,6 +3,7 @@ package com.example.code.services;
 import com.example.code.domain.User;
 import com.example.code.dto.ListUserDto;
 import com.example.code.mappers.UserMapper;
+import com.example.code.mappers.UserMapperImpl;
 import com.example.code.repositories.UserRepository;
 import com.example.code.services.impl.UserServiceImpl;
 import org.junit.jupiter.api.Assertions;
@@ -35,6 +36,7 @@ class UserServiceTest {
     @Mock
     private UserRepository userRepository;
 
+    @Mock
     private final UserMapper userMapper = Mappers.getMapper(UserMapper.class);
 
     @BeforeEach

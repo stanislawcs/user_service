@@ -1,16 +1,14 @@
 package com.example.code.domain;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -21,8 +19,10 @@ import java.util.Set;
 )
 @Getter
 @Setter
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode(of = {"username", "email"})
 public class User implements UserDetails, Serializable {
 
     @Id
@@ -35,11 +35,13 @@ public class User implements UserDetails, Serializable {
 
     private String password;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ToString.Exclude
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
-    private Set<Role> roles;
+    private Set<Role> roles = new HashSet<>();
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -66,4 +68,5 @@ public class User implements UserDetails, Serializable {
     public boolean isEnabled() {
         return true;
     }
+
 }

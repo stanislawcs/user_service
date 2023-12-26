@@ -1,7 +1,7 @@
 package com.example.code.services;
 
 import com.example.code.dto.ListUserDto;
-import com.example.code.dto.UserCreationResponse;
+import com.example.code.dto.AuthenticationResponse;
 import com.example.code.dto.UserDto;
 import org.springframework.data.domain.Pageable;
 
@@ -12,7 +12,7 @@ public interface UserService {
 
     UserDto findById(Long id);
 
-    UserCreationResponse create(UserDto userDTO);
+    AuthenticationResponse create(UserDto userDTO);
 
     void update(UserDto userDTO, Long id);
 

@@ -1,7 +1,7 @@
 package com.example.code.controllers;
 
 import com.example.code.dto.ListUserDto;
-import com.example.code.dto.UserCreationResponse;
+import com.example.code.dto.AuthenticationResponse;
 import com.example.code.dto.UserDto;
 import com.example.code.services.UserService;
 import jakarta.validation.Valid;
@@ -23,7 +23,6 @@ public class UserController {
 
     @GetMapping
     public ResponseEntity<List<ListUserDto>> findAll(@PageableDefault(value = 5) Pageable pageable) {
-
         return new ResponseEntity<>(userService.findAll(pageable), HttpStatus.OK);
     }
 
@@ -33,7 +32,7 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<UserCreationResponse> create(@RequestBody @Valid UserDto userDTO) {
+    public ResponseEntity<AuthenticationResponse> create(@RequestBody @Valid UserDto userDTO) {
         return new ResponseEntity<>(userService.create(userDTO), HttpStatus.CREATED);
     }
 

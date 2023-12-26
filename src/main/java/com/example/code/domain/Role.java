@@ -1,17 +1,19 @@
 package com.example.code.domain;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-import java.util.Set;
+import java.util.List;
 
 @Entity
 @Table(name = "roles")
 @Getter
 @Setter
-@RequiredArgsConstructor
+@ToString
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode(of = {"type"})
 public class Role {
 
     @Id
@@ -21,6 +23,8 @@ public class Role {
     @Enumerated(EnumType.STRING)
     private RoleType type;
 
+    @ToString.Exclude
     @ManyToMany(mappedBy = "roles")
-    private Set<User> users;
+    private List<User> users;
+
 }
