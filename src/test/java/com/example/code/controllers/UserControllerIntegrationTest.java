@@ -11,6 +11,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
@@ -25,10 +26,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Testcontainers
 @SpringBootTest
 @AutoConfigureMockMvc
+@ActiveProfiles("test")
 class UserControllerIntegrationTest {
 
     @Container
-    @ServiceConnection
     private static final PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:14.5");
 
     @Autowired
@@ -36,12 +37,10 @@ class UserControllerIntegrationTest {
 
     @Nested
     class UserFindTest {
-
         @Test
         @SneakyThrows
         @DisplayName("should find all users")
         void findAll_returnListOfUsers() {
-
             mockMvc.perform(get("/users")
                             .param("page", "0")
                             .param("size", "2")
@@ -58,7 +57,6 @@ class UserControllerIntegrationTest {
         @Test
         @SneakyThrows
         void findAll_unauthorized() {
-
             mockMvc.perform(get("/users")
                             .param("page", "0")
                             .param("size", "2"))
@@ -68,7 +66,6 @@ class UserControllerIntegrationTest {
         @Test
         @SneakyThrows
         void findAll_forbidden() {
-
             mockMvc.perform(get("/users")
                             .param("page", "0")
                             .param("size", "2")
@@ -79,7 +76,6 @@ class UserControllerIntegrationTest {
         @Test
         @SneakyThrows
         void findOneById_returnUser() {
-
             mockMvc.perform(get("/users/{id}", 1L)
                             .with(httpBasic("stanislawcs", "1500002006501")))
                     .andExpect(status().isOk())
@@ -93,7 +89,6 @@ class UserControllerIntegrationTest {
         @Test
         @SneakyThrows
         void findOneById_notFound() {
-
             mockMvc.perform(get("/users/{id}", Integer.MAX_VALUE)
                             .with(httpBasic("stanislawcs", "1500002006501")))
                     .andExpect(status().isNotFound())
@@ -104,7 +99,6 @@ class UserControllerIntegrationTest {
 
     @Nested
     class UserCreateTest {
-
         @Test
         @SneakyThrows
         void create_createUser() {
@@ -140,7 +134,6 @@ class UserControllerIntegrationTest {
 
     @Nested
     class UserUpdateTest {
-
         @Test
         @SneakyThrows
         void update_updateUser() {
@@ -174,11 +167,9 @@ class UserControllerIntegrationTest {
 
     @Nested
     class UserDeleteTest {
-
         @Test
         @SneakyThrows
         void delete_deleteUser() {
-
             mockMvc.perform(delete("/users/{id}", 5L)
                             .with(httpBasic("stanislawcs", "1500002006501")))
                     .andExpect(status().isNoContent());
