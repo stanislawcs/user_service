@@ -5,13 +5,10 @@ import com.example.code.domain.RoleType;
 import com.example.code.domain.User;
 import com.example.code.dto.AuthenticationResponse;
 import com.example.code.dto.ListUserDto;
-import com.example.code.dto.TokenType;
 import com.example.code.dto.UserDto;
 import com.example.code.exceptions.ObjectAlreadyExistsException;
 import com.example.code.exceptions.UserNotFoundException;
 import com.example.code.mappers.UserMapper;
-import com.example.code.repositories.JwtTokenRepositoryImpl;
-import com.example.code.repositories.RoleRepository;
 import com.example.code.repositories.UserRepository;
 import com.example.code.services.UserService;
 import com.example.code.services.jwt.JwtService;
@@ -21,9 +18,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Slf4j
 @Service
@@ -33,8 +30,6 @@ public class UserServiceImpl implements UserService {
     private final UserMapper userMapper;
     private final JwtService jwtService;
     private final UserRepository userRepository;
-    private final RoleRepository roleRepository;
-    private final JwtTokenRepositoryImpl jwtTokenRepository;
 
     @Override
     public List<ListUserDto> findAll(Pageable pageable) {
@@ -56,22 +51,19 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public AuthenticationResponse create(UserDto dto) {
+    public AuthenticationResponse create(UserDto userDTO) {
         log.debug("UserService: create()");
-        Optional<User> foundedUser = userRepository.findByUsername(dto.getUsername());
+        Optional<User> foundedUser = userRepository.findByUsername(userDTO.getUsername());
 
         if (foundedUser.isPresent()) {
             throw new ObjectAlreadyExistsException("User already exists!");
         }
 
-        User user = userMapper.toEntity(dto);
-        Role role = roleRepository.findRoleByType(RoleType.ROLE_READER);
+        User user = userMapper.toEntity(userDTO);
+        user.setRoles(Set.of(Role.builder().type(RoleType.ROLE_READER).build()));
 
-        user.addRole(role);
         userRepository.save(user);
-
         String token = jwtService.generateToken(user);
-        saveToken(token, user.getId());
 
         return AuthenticationResponse
                 .builder()
@@ -82,12 +74,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public void update(UserDto dto, Long id) {
+    public void update(UserDto userDTO, Long id) {
         log.debug("UserService: update()");
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException("User with id: " + id + " not found!"));
 
-        userMapper.toEntity(dto, user);
+        userMapper.toEntity(userDTO, user);
         userRepository.save(user);
     }
 
@@ -97,11 +89,4 @@ public class UserServiceImpl implements UserService {
         userRepository.deleteById(id);
     }
 
-    private void saveToken(String token, Long userId) {
-        String tokenId = jwtService.extractId(token);
-        String key = userId + ":" + TokenType.ACCESS.toString().toLowerCase() + ":" +
-                tokenId;
-        Date expiredTokenTime = jwtService.extractExpiration(token);
-        jwtTokenRepository.save(key, token, expiredTokenTime.getTime());
-    }
 }
