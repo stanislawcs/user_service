@@ -1,6 +1,11 @@
 package com.example.code.dto;
 
-public class ListUserDTO {
+import lombok.*;
+
+
+@Data
+@AllArgsConstructor
+public class ListUserDto {
     private Long id;
     private String username;
     private String email;
