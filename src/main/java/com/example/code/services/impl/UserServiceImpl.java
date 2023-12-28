@@ -56,6 +56,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
+
     public AuthenticationResponse create(UserDto dto) {
         log.debug("UserService: create()");
         Optional<User> foundedUser = userRepository.findByUsername(dto.getUsername());
@@ -82,6 +83,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
+
     public void update(UserDto dto, Long id) {
         log.debug("UserService: update()");
         User user = userRepository.findById(id)
@@ -103,5 +105,6 @@ public class UserServiceImpl implements UserService {
                 tokenId;
         Date expiredTokenTime = jwtService.extractExpiration(token);
         jwtTokenRepository.save(key, token, expiredTokenTime.getTime());
+
     }
 }

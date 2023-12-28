@@ -43,10 +43,12 @@ public class User implements UserDetails, Serializable {
     private Set<Role> roles = new HashSet<>();
 
 
+
     public void addRole(Role role) {
         this.roles.add(role);
         role.getUsers().add(this);
     }
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
