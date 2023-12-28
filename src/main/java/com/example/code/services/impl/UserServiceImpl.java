@@ -11,7 +11,6 @@ import com.example.code.exceptions.UserNotFoundException;
 import com.example.code.mappers.UserMapper;
 import com.example.code.repositories.UserRepository;
 import com.example.code.services.UserService;
-import com.example.code.services.jwt.JwtService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
@@ -28,7 +27,6 @@ import java.util.Set;
 public class UserServiceImpl implements UserService {
 
     private final UserMapper userMapper;
-    private final JwtService jwtService;
     private final UserRepository userRepository;
 
     @Override
@@ -63,12 +61,10 @@ public class UserServiceImpl implements UserService {
         user.setRoles(Set.of(Role.builder().type(RoleType.ROLE_READER).build()));
 
         userRepository.save(user);
-        String token = jwtService.generateToken(user);
 
         return AuthenticationResponse
                 .builder()
                 .id(user.getId())
-                .token(token)
                 .build();
     }
 
