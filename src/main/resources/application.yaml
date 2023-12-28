@@ -1,9 +1,11 @@
 spring:
+  config:
+    import: optional:file:.env[.properties]
   profile: dev
   datasource:
-    url: jdbc:postgresql://localhost:5434/users
-    username: postgres
-    password: 1500002006501
+    url: jdbc:postgresql://${HOST}:5434/${POSTGRES_DATABASE}
+    username: ${POSTGRES_USERNAME}
+    password: ${POSTGRES_PASSWORD}
     driver-class-name: org.postgresql.Driver
 
   jpa:
@@ -12,6 +14,10 @@ spring:
         ddl-auto: none
         dialect: org.hibernate.dialect.PostgreSQLDialect
         show_sql: true
+
+  redis:
+    host: ${HOST}
+    port: 6379
 
 server:
   port: 7071
@@ -23,4 +29,4 @@ logging:
         security: DEBUG
 
 secret:
-  key: 404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970
+  key: ${SECRET_KEY}
